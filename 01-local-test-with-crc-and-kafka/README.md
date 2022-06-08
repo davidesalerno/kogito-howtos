@@ -67,13 +67,10 @@ In order to understand better what you are doing with the following commands, yo
 export USERNAME=<container-registry-username>
 export VERSION=0.0.1
 export IMG=quay.io/$USERNAME/kogito-operator:v$VERSION // location where your operator image is hosted
-export BUNDLE_IMG=quay.io/$USERNAME/kogito-operator-bundle:v$VERSION // location where your bundle will be hosted
-source source ~/.venvs/cekit/bin/activate // <-- you have to refer to a Python virtual env with CeKit available
+source ~/.venvs/cekit/bin/activate // <-- you have to refer to a Python virtual env with CeKit available
 make
-make bundle
-make bundle-build bundle-push
-operator-sdk bundle validate $BUNDLE_IMG
-operator-sdk run bundle $BUNDLE_IMG --install-mode=AllNamespaces --timeout=15m --namespace=openshift-operators
+make container-push
+make deploy-operator-on-ocp $IMG
 ```
 
 When the Kogito Operator will be available, we have to declare tha the Kafka instance is a relevant infrastructure component for the Kogito services that we will deploy with the KogitoOperator using the [KafakInfra](https://docs.jboss.org/kogito/release/latest/html_single/#_kogito_operator_dependencies_on_third_party_operators) CRD. I prepared a manifest for the KafkaInfra, you can find in the [resources folder](resources/kubernetes/kafka-infra.yml), you only need to apply it:
