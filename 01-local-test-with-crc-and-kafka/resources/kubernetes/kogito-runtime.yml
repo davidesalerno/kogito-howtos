@@ -1,0 +1,11 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoRuntime
+metadata:
+  name: process-quarkus-example
+  namespace: kogito
+spec:
+  infra:
+    - my-kafka-infra
+  replicas: 1
+  image: 'quay.io/dsalerno/process-kafka-quickstart-quarkus:1.22.1.Final'
+  runtime: quarkus
