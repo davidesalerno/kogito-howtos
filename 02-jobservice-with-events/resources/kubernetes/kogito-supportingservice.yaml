@@ -1,0 +1,14 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoSupportingService
+metadata:
+  name: my-job-service
+spec:
+  serviceType: JobsService
+  image: quay.io/kiegroup/kogito-jobs-service-ephemeral:latest
+  infra:
+    - my-kafka-infra
+  env:
+    - name: QUARKUS_PROFILE
+      value: prod,event-support
+    - name: MP_MESSAGGING_INCOMING_KOGITO-JOB-SERVICE-JOB-REQUEST-EVENTS_TOPIC
+      value: my-custom-kogito-job-service-job-request-events
